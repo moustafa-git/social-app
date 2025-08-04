@@ -1,12 +1,43 @@
-# React + Vite
+# 🚀 Socail App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Tech Stack
 
-## Expanding the ESLint configuration
+<p align="left">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+  <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white" alt="React Hook Form" />
+  <img src="https://img.shields.io/badge/Zod-181717?style=for-the-badge&logoColor=white" alt="Zod" />
+  <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge" alt="Axios" />
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router" />
+</p>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✅ Features Implemented
+
+- [x] Login page with form validation  
+- [x] Registration page with form validation  
+- [x] Form validation using Zod + RHF  
+- [x] API integration with Axios  
+- [x] Page navigation using React Router
+
+---
+
+## 📦 Setup Instructions
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/your-repo-name.git
+
+# Navigate into the project
+cd your-repo-name
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
