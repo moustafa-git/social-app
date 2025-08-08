@@ -1,6 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearToken } from "./../../User/userSlice";
 
 function Navbar() {
+  const token = useSelector((store) => store.user.token);
+  const dispatch = useDispatch();
   return (
     <>
       <nav className="navbar bg-base-100 shadow-sm w-[95%] mx-auto">
@@ -30,18 +34,27 @@ function Navbar() {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <NavLink to={"/register"}>Register</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/login"}>Login</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/userposts"}>User Posts</NavLink>
-              </li>
-              <li>
-                <NavLink to={""}>Logout</NavLink>
-              </li>
+              {localStorage.getItem("userToken") !== null && token !== null ? (
+                <>
+                  <li>
+                    <NavLink to={"/userposts"}>User Posts</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={""} onClick={() => dispatch(clearToken())}>
+                      Logout
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <NavLink to={"/register"}>Register</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to={"/login"}>Login</NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

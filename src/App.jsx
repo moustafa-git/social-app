@@ -5,8 +5,12 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import UserPosts from "./components/UserPosts/UserPosts";
 import NotFound from "./components/NotFound/NotFound";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+import { useSelector } from "react-redux";
 
 function App() {
+  const token = useSelector((store) => store.user.token);
+
   const router = createBrowserRouter([
     {
       element: <Layout />,
@@ -17,15 +21,27 @@ function App() {
         },
         {
           path: "/login",
-          element: <Login />,
+          element: (
+            <ProtectedRoutes isAllowed={!!token === true ? false : true}>
+              <Login />
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "/register",
-          element: <Register />,
+          element: (
+            <ProtectedRoutes isAllowed={!!token === true ? false : true}>
+              <Register />
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "/userposts",
-          element: <UserPosts />,
+          element: (
+            <ProtectedRoutes isAllowed={!!token}>
+              <UserPosts />
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "*",

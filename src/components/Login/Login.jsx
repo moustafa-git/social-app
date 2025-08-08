@@ -3,6 +3,8 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
+import { updateToken } from "../../User/UserSlice";
+import { useDispatch } from "react-redux";
 
 const schema = z.object({
   email: z.string().nonempty("Email is required").email("Not valid"),
@@ -10,6 +12,7 @@ const schema = z.object({
 });
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
@@ -24,7 +27,11 @@ function Login() {
         "https://linked-posts.routemisr.com/users/signin",
         values
       );
-      if (data.message === "success") navigate("/");
+      if (data.message === "success") {
+        localStorage.setItem("userToken", data.token);
+        dispatch(updateToken(data.token));
+        navigate("/");
+      }
     } catch (error) {
       setError("root", { message: error.response.data.error });
     }

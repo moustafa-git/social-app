@@ -39,7 +39,9 @@ function Register() {
         "https://linked-posts.routemisr.com/users/signup",
         values
       );
-      if (data.message === "success") navigate("/login");
+      if (data.message === "success") {
+        navigate("/login");
+      }
     } catch (error) {
       setError("root", { message: error.response.data.error });
     }

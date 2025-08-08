@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux";
 function Home() {
-  return <div>HOME</div>;
+  const token = useSelector((store) => store.user.token);
+  return <div>HOME {token}</div>;
 }
 
 export default Home;
