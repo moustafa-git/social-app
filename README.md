@@ -1,4 +1,4 @@
-# 🚀 Socail App
+# 🚀 Social App
 
 
 ---
