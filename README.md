@@ -12,6 +12,7 @@
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge)
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white)
 
 ---
 
@@ -24,6 +25,9 @@
 - [x] Page navigation using React Router  
 - [x] Protected routes for authenticated access  
 - [x] Global state management using Redux Toolkit  
+- [x] **Global remote state management using React Query**  
+- [x] Fetch all users, posts, and comments  
+- [x] Fetch logged-in user’s posts  
 
 ---
 
