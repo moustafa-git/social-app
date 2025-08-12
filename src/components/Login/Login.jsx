@@ -28,9 +28,10 @@ function Login() {
         values
       );
       if (data.message === "success") {
+        console.log(data);
         localStorage.setItem("userToken", data.token);
         dispatch(updateToken(data.token));
-        navigate("/");
+        navigate("");
       }
     } catch (error) {
       setError("root", { message: error.response.data.error });

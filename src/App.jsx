@@ -1,4 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
@@ -6,9 +14,11 @@ import Register from "./components/Register/Register";
 import UserPosts from "./components/UserPosts/UserPosts";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
-import { useSelector } from "react-redux";
+import PostDetail from "./components/PostDetail/PostDetail";
 
 function App() {
+  const queryClient = new QueryClient();
+
   const token = useSelector((store) => store.user.token);
 
   const router = createBrowserRouter([
@@ -17,12 +27,22 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: (
+            <ProtectedRoutes
+              isAllowed={!!token}
+              redirectPath={!!token === true ? "/home" : "/login"}
+            >
+              <Navigate to={"/home"} />
+            </ProtectedRoutes>
+          ),
         },
         {
           path: "/login",
           element: (
-            <ProtectedRoutes isAllowed={!!token === true ? false : true}>
+            <ProtectedRoutes
+              isAllowed={!!token === true ? false : true}
+              redirectPath={!!token === true ? "/home" : "/login"}
+            >
               <Login />
             </ProtectedRoutes>
           ),
@@ -31,6 +51,7 @@ function App() {
           path: "/register",
           element: (
             <ProtectedRoutes isAllowed={!!token === true ? false : true}>
+              <ReactQueryDevtools initialIsOpen={false} />
               <Register />
             </ProtectedRoutes>
           ),
@@ -44,6 +65,22 @@ function App() {
           ),
         },
         {
+          path: "/post/:postId",
+          element: (
+            <ProtectedRoutes isAllowed={!!token}>
+              <PostDetail />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "/home",
+          element: (
+            <ProtectedRoutes isAllowed={!!token}>
+              <Home />
+            </ProtectedRoutes>
+          ),
+        },
+        {
           path: "*",
           element: <NotFound />,
         },
@@ -51,7 +88,12 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

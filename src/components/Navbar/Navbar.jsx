@@ -37,12 +37,15 @@ function Navbar() {
               {localStorage.getItem("userToken") !== null && token !== null ? (
                 <>
                   <li>
+                    <NavLink to={"/home"}>Home</NavLink>
+                  </li>
+                  <li>
                     <NavLink to={"/userposts"}>User Posts</NavLink>
                   </li>
                   <li>
-                    <NavLink to={""} onClick={() => dispatch(clearToken())}>
+                    <Link to={""} onClick={() => dispatch(clearToken())}>
                       Logout
-                    </NavLink>
+                    </Link>
                   </li>
                 </>
               ) : (
