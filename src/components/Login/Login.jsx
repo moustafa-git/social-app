@@ -3,7 +3,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as z from "zod";
-import { updateToken } from "../../User/UserSlice";
+import { updateToken } from "./../../User/userSlice";
 import { useDispatch } from "react-redux";
 
 const schema = z.object({
