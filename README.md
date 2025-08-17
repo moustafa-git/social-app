@@ -24,6 +24,12 @@ Give it a Try: [social app netlify](https://social-app-lac-eight.vercel.app/)
 
 ---
 
+
+![Logo](./public/1.png)
+![Logo](./public/2.png)
+![Logo](./public/3.png)
+---
+
 ## ✅ Features Implemented
 
 - [x] Login page with form validation  
