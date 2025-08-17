@@ -1,11 +1,34 @@
 import { useState } from "react";
 import CommentRow from "./CommentRow";
 import { Link } from "react-router-dom";
+import moment from "moment/moment";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createComment } from "../../services/postsApi";
+import { useSelector } from "react-redux";
 
 export default function PostCard({ post }) {
+  const queryClient = useQueryClient();
+  const token = useSelector((store) => store.user.token);
+  const { register, handleSubmit, reset } = useForm();
+  const { isPending: isUploadingComment, mutate } = useMutation({
+    mutationFn: (comment) => createComment(token, comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["allPosts"] });
+      queryClient.invalidateQueries({ queryKey: ["user-posts"] });
+      reset();
+    },
+  });
   const [showComments, setShowComments] = useState(false);
+  const [visibleComments, setVisibleComments] = useState(1);
+
+  function onSubmit(data) {
+    const comment = { ...data, post: post._id };
+    mutate(comment);
+  }
+
   return (
-    <div className="card bg-base-100 shadow-md p-4 max-w-xl mx-auto my-6">
+    <div className="card bg-base-100 shadow-md p-4 max-w-xl mx-auto mb-6 w-full">
       <Link to={`/post/${post._id}`}>
         <div className="flex items-center gap-3 mb-3">
           <div className="avatar">
@@ -15,7 +38,9 @@ export default function PostCard({ post }) {
           </div>
           <div>
             <p className="font-bold">{post.user.name}</p>
-            <p className="text-sm text-gray-400">{post.createdAt}</p>
+            <p className="text-sm text-gray-400">
+              {moment(post.createdAt).calendar()}
+            </p>
           </div>
         </div>
 
@@ -33,6 +58,7 @@ export default function PostCard({ post }) {
           className="btn btn-ghost btn-sm"
           onClick={() => setShowComments(!showComments)}
         >
+          <span>{post.comments.length}</span>
           💬 Comment
         </button>
         <button className="btn btn-ghost btn-sm">↪️ Share</button>
@@ -42,20 +68,36 @@ export default function PostCard({ post }) {
       {showComments && (
         <div className="mt-4 overflow-scroll max-h-[200px]">
           {/* Existing Comments */}
-          {post.comments.map((comment) => (
+          {post.comments.slice(0, visibleComments).map((comment) => (
             <CommentRow key={comment._id} comment={comment} />
           ))}
 
+          {post.comments.length > visibleComments ? (
+            <button
+              className="btn block mx-auto"
+              onClick={() => setVisibleComments((vc) => vc + 1)}
+            >
+              Load more Comments...
+            </button>
+          ) : null}
+
           {/* New Comment Input */}
-          <form className="flex  gap-5 content-between items-center">
+          <form
+            className="flex  gap-5 content-between items-center"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <input
               type="text"
               name="content"
               placeholder="Write a comment..."
               className="input input-bordered w-full"
+              {...register("content")}
             />
-            <button className="px-3 py-2 bg-blue-400 text-white rounded-xl">
-              Add
+            <button
+              className="px-3 py-2 bg-blue-400 text-white rounded-xl"
+              type="submit"
+            >
+              {isUploadingComment ? "Uploading" : "ADD"}
             </button>
           </form>
         </div>
