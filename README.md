@@ -1,6 +1,6 @@
 # 🚀 Social App
-A full-stack social media app where users can create posts, comment, and interact with others.
-Built with React, Redux Toolkit, React Query, and Tailwind for a modern, responsive experience.
+A social media web app where users can create posts, comment, and manage content with authentication and protected routes.
+Built with React, Redux Toolkit, React Query, and Tailwind, using a REST API from a custom backend server.
 ---
 
 ## 🔧 Tech Stack
