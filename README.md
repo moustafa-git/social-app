@@ -17,6 +17,13 @@ Built with React, Redux Toolkit, React Query, and Tailwind for a modern, respons
 
 ---
 
+
+
+## 🚀 Live Demo
+Give it a Try: [social app netlify](https://social-app-lac-eight.vercel.app/)
+
+---
+
 ## ✅ Features Implemented
 
 - [x] Login page with form validation  
